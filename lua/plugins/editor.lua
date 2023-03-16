@@ -41,14 +41,15 @@ return {
 	},
 	{
 		"ggandor/leap.nvim",
-		event = "BufReadPre",
-		config = function()
-			require("leap").add_default_mappings()
-		end,
+		event = "VeryLazy",
+		keys = {
+			{ "<leader>s", "<Plug>(leap-forward-to)", "Leap: Forward" },
+			{ "<leader>S", "<Plug>(leap-backward-to)", "Leap: Backward" },
+		},
 	},
 	{
 		"ggandor/flit.nvim",
-		event = "BufReadPre",
+		event = "VeryLazy",
 		config = true,
 	},
 }

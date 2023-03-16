@@ -53,11 +53,6 @@ map("n", "<leader>sh", "<C-w>s", { desc = "Split: Horizontal" })
 map("n", "<leader>se", "<C-w>=", { desc = "Split: Make Equal" })
 map("n", "<leader>sx", ":close<CR>", { desc = "Split: Close" })
 
-map("n", "<c-k>", ":wincmd k<CR>", { desc = "Goto: Split Up" })
-map("n", "<c-j>", ":wincmd j<CR>", { desc = "Goto: Split Down" })
-map("n", "<c-h>", ":wincmd h<CR>", { desc = "Goto: Split Right" })
-map("n", "<c-l>", ":wincmd l<CR>", { desc = "Goto: Split Left" })
-
 map("n", "<up>", ":wincmd k<CR>", { desc = "Goto: Split Up" })
 map("n", "<down>", ":wincmd j<CR>", { desc = "Goto: Split Down" })
 map("n", "<left>", ":wincmd h<CR>", { desc = "Goto: Split Left" })

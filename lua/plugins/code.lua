@@ -28,37 +28,23 @@ return {
 	},
 	{
 		"vim-scripts/ReplaceWithRegister",
-		event = "BufReadPre",
-	},
-	{
-		"numToStr/Comment.nvim",
-		keys = { { "gcc" }, { "gbc" }, { "gc", mode = "v" }, { "gb", mode = "v" } },
-		config = true,
+		keys = { { "gr" } },
+		event = "VeryLazy",
 	},
 	{
 		"windwp/nvim-autopairs",
 		event = "BufReadPre",
 		config = true,
 	},
-	-- {
-	-- 	"akinsho/toggleterm.nvim",
-	-- 	keys = {
-	-- 		{ "<leader>tt", ":ToggleTerm size=40<cr>", desc = { "Toggle Terminal" } },
-	-- 	},
-	-- 	config = true,
-	-- },
-	-- {
-	-- 	"xeluxee/competitest.nvim",
-	-- 	dependencies = {
-	-- 		"MunifTanjim/nui.nvim",
-	-- 	},
-	-- 	keys = {
-	-- 		{ "<leader>cr", "<cmd>CompetiTestRun<cr>", desc = "Run Competitest" },
-	-- 		{ "<leader>ca", "<cmd>CompetiTestAdd<cr>", desc = "Add Test" },
-	-- 		{ "<leader>ce", "<cmd>CompetiTestEdit<cr>", desc = "Edit Test" },
-	-- 	},
-	-- 	config = function()
-	-- 		require("user.config.competitest")
-	-- 	end,
-	-- },
+	{
+		"echasnovski/mini.nvim",
+		event = "VeryLazy",
+		version = false,
+		config = function()
+			require("mini.ai").setup({})
+			require("mini.comment").setup({})
+			-- require("mini.pairs").setup({}) -- lags
+			-- require("mini.surround").setup({}) -- doesn't work well
+		end,
+	},
 }

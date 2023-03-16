@@ -21,6 +21,7 @@ treesitter.setup({
 		"python",
 		"toml",
 		"markdown_inline",
+        "kdl",
 	},
 	-- auto install above language parsers
 	auto_install = true,
