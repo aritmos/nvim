@@ -17,12 +17,10 @@ map("i", "jj", "<ESC>")
 -- NORMAL MODE --
 
 -- movement
-map("n", "J", "<C-d>zz", { desc = "Goto Half Page Down" })
-map("n", "K", "<C-u>zz", { desc = "Goto Half Page Up" })
+map("n", "J", "}", { desc = "Goto Paragraph End" })
+map("n", "K", "{", { desc = "Goto Paragraph Start" })
 map("n", "H", "^", { desc = "Goto Line Start" })
 map("n", "L", "$", { desc = "Goto Line End" })
-map("n", "<leader><up>", "<C-i>", { desc = "Jump Forward" })
-map("n", "<leader><down>", "<C-o>", { desc = "Jump Back" })
 
 -- add lines
 map("n", "<leader>o", "o<ESC>")
@@ -50,10 +48,10 @@ map("v", "<", "<gv", { desc = "Indent" })
 map("v", ">", ">gv", { desc = "Unindent" })
 
 -- windows splits
--- map("n", "<leader>sv", "<C-w>v", { desc = "Split: Vertical" })
--- map("n", "<leader>sh", "<C-w>s", { desc = "Split: Horizontal" })
--- map("n", "<leader>se", "<C-w>=", { desc = "Split: Make Equal" })
--- map("n", "<leader>sx", ":close<CR>", { desc = "Split: Close" })
+map("n", "<leader>sv", "<C-w>v", { desc = "Split: Vertical" })
+map("n", "<leader>sh", "<C-w>s", { desc = "Split: Horizontal" })
+map("n", "<leader>se", "<C-w>=", { desc = "Split: Make Equal" })
+map("n", "<leader>sx", ":close<CR>", { desc = "Split: Close" })
 
 map("n", "<up>", ":wincmd k<CR>", { desc = "Goto: Split Up" })
 map("n", "<down>", ":wincmd j<CR>", { desc = "Goto: Split Down" })
@@ -73,41 +71,3 @@ map("n", "x", '"_x') -- dont delete text into register
 -- PLUGINS --
 map("n", "<leader>pl", ":Lazy<CR>", { desc = "Plugins: Lazy" })
 map("t", "<Esc>", "<C-\\><C-n>", { desc = "Escape Terminal" })
-
-function minimal()
-	return require("telescope.themes").get_dropdown({
-		borderchars = {
-			{ "─", "│", "─", "│", "┌", "┐", "┘", "└" },
-			prompt = { "─", "│", " ", "│", "┌", "┐", "│", "│" },
-			results = { "─", "│", "─", "│", "├", "┤", "┘", "└" },
-			preview = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
-		},
-		width = 0.6,
-		previewer = false,
-		prompt_title = false,
-	})
-end
-
-map(
-	"n",
-	"<leader>ff",
-	':lua require("telescope.builtin").find_files(minimal())<CR>',
-	{ desc = "Telescope: Find Files" }
-)
-
--- ACTIONS
-
--- Ziglings
--- function ziglings()
--- 	-- Get the filename of the current buffer
--- 	local filename = vim.fn.expand("%:t")
---
--- 	-- Extract the first 3 digits from the filename
--- 	local number = string.match(filename, "%d%d%d")
---
--- 	-- Build the Zig file using the extracted number
--- 	local command = "zellij run -f -- zig build -Dn=" .. number
--- 	os.execute(command)
--- end
-
--- map("n", "<leader>z", ":lua ziglings()<CR>", { desc = "Verify current zigling file" })
