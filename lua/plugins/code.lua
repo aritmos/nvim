@@ -30,7 +30,7 @@ return {
 			"nvim-tree/nvim-web-devicons",
 		},
 		keys = {
-			{ "<leader>ca", "<CMD>AerialToggle<CR>", { desc = "Aerial: Toggle" } },
+			{ "<leader>pa", "<CMD>AerialToggle<CR>", { desc = "Aerial: Toggle" } },
 		},
 		config = function()
 			require("user.config.aerial")
