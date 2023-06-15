@@ -43,8 +43,12 @@ cmp.setup({
 	-- configure lspkind for vs-code like icons
 	formatting = {
 		format = lspkind.cmp_format({
-			maxwidth = 50,
+			maxwidth = 30,
 			ellipsis_char = "...",
+			-- before = function(entry, vim_item)
+			-- 	vim_item.abbr = string.sub(vim_item.abbr, 1, 20)
+			-- 	return vim_item
+			-- end,
 		}),
 	},
 })

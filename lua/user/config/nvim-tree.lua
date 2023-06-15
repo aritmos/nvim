@@ -8,7 +8,31 @@ end
 vim.g.loaded = 1
 vim.g.loaded_newtrPlugin = 1
 
+M = {}
+local api = require("nvim-tree.api")
+
+local function opts(desc)
+	return { desc = "NvimTree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+end
+
+function M.on_attach(bufnr)
+	-- default maps
+	api.config.mappings.default_on_attach(bufnr)
+
+	-- custom maps
+	vim.keymap.set("n", "<S-Tab>", M.cd, opts("CD"))
+	vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
+end
+
+function M.cd()
+	local node = api.tree.get_node_under_cursor()
+	-- print("cd: " .. node.absolute_path)
+	vim.api.nvim_command("cd " .. node.absolute_path)
+end
+
 nvimtree.setup({
+	git = { enable = false },
+	on_attach = M.on_attach,
 	update_cwd = true,
 	actions = {
 		open_file = {
@@ -22,20 +46,10 @@ nvimtree.setup({
 			open = true,
 		},
 	},
-	view = {
-		mappings = {
-			list = {
-				{ key = "<Tab>", action = "cd" },
-			},
-		},
-	},
 })
 
-vim.api.nvim_create_autocmd("BufEnter", {
-	nested = true,
+vim.api.nvim_create_autocmd({ "QuitPre" }, {
 	callback = function()
-		if #vim.api.nvim_list_wins() == 1 and require("nvim-tree.utils").is_nvim_tree_buf() then
-			vim.cmd("quit")
-		end
+		vim.cmd("NvimTreeClose")
 	end,
 })

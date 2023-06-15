@@ -12,6 +12,14 @@ saga.setup({
 		edit = "<CR>",
 	},
 	ui = {
-		code_action = "",
+		title = false,
+		code_action = "A", -- change lightbulb
+		border = "solid",
+	},
+	lightbulb = { -- "lightbulb" in gutter only
+		enable = true,
+		sign = true,
+		sign_priority = 40,
+		virtual_text = false,
 	},
 })

@@ -21,6 +21,7 @@ return {
 			"simrat39/rust-tools.nvim", -- config dependency
 			"hrsh7th/cmp-nvim-lsp", -- config dependency
 		},
+		-- keybinds defined within config file (below)
 		config = function()
 			require("user.config.lsp.lspconfig")
 		end,
@@ -37,10 +38,12 @@ return {
 	},
 	{
 		"j-hui/fidget.nvim",
+		tag = "legacy", -- use legacy tag while plugin gets rewritten (12/06/23)
 		ft = codefiles,
 		config = function()
 			require("fidget").setup({
 				text = { spinner = "dots" },
+				fmt = { max_width = 40 },
 			})
 		end,
 	},
@@ -53,15 +56,21 @@ return {
 			require("user.config.lsp.null-ls")
 		end,
 	},
-	{
-		"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-		ft = codefiles,
-		keys = {
-			{ "<leader>l", ":lua require('lsp_lines').toggle()<cr>", desc = "Lsp Lines: Toggle", silent = true },
-		},
-		config = function()
-			require("lsp_lines").setup()
-			require("lsp_lines").toggle() -- start disabled
-		end,
-	},
+	-- {
+	-- 	"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+	-- 	ft = codefiles,
+	-- 	keys = {
+	-- 		-- { "<leader>l", ":lua require('lsp_lines').toggle()<cr>", desc = "Lsp Lines: Toggle", silent = true },
+	-- 		{
+	-- 			"<leader>l",
+	-- 			":lua Toggle_diagnostics_virtual_lines()<cr>",
+	-- 			desc = "LSP: Toggle Line Diagnostics",
+	-- 			silent = true,
+	-- 		},
+	-- 	},
+	-- 	config = function()
+	-- 		require("lsp_lines").setup()
+	-- 		require("lsp_lines").toggle() -- start disabled
+	-- 	end,
+	-- },
 }

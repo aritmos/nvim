@@ -15,27 +15,35 @@ local keymap = vim.keymap -- for conciseness
 -- enable keybinds only for when lsp server available
 local on_attach = function(client, bufnr)
 	-- keybind options
-	local opts = { noremap = true, silent = true, buffer = bufnr }
+	local function opts(desc)
+		return { desc = "LSP: " .. desc, noremap = true, silent = true, buffer = bufnr }
+	end
 
 	-- set keybinds
-	keymap.set("n", "gf", "<cmd>Lspsaga lsp_finder<CR>", opts) -- show definition, references
-	keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts) -- got to declaration
-	keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts) -- see definition and make edits in window
-	keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts) -- go to implementation
-	keymap.set("n", "<leader>a", "<cmd>Lspsaga code_action<CR>", opts) -- see available code actions
-	keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opts) -- smart rename
-	keymap.set("n", "<leader>vd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", opts) -- show diagnostics for cursor
-	keymap.set("n", "<leader>vD", "<cmd>Lspsaga hover_doc<CR>", opts) -- show documentation for what is under cursor
-	keymap.set("n", "<leader><Left>", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts) -- jump to previous diagnostic in buffer
-	keymap.set("n", "<leader><Right>", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts) -- jump to next diagnostic in buffer
+	keymap.set("n", "<leader>vi", "<cmd>Lspsaga lsp_finder<CR>", opts("View Info")) -- show definition, references
+	keymap.set("n", "<leader>vh", "<cmd>Lspsaga hover_doc<CR>", opts("View Hover")) -- show diagnostics for cursor
+	keymap.set("n", "<leader>vD", "<cmd>Lspsaga hover_doc<CR>", opts("View Documentation"))
+
+	keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts("Goto Declaration")) -- got to declaration
+	keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts("Goto Implementation")) -- go to implementation
+
+	keymap.set("n", "<leader>a", "<cmd>Lspsaga code_action<CR>", opts("Code Action")) -- see available code actions
+	keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opts("Rename")) -- smart rename
+
+	-- use native diagnostics
+	keymap.set("n", "<leader>d", "<cmd>lua vim.diagnostic.open_float()<CR>", opts("Diagnostic")) -- show diagnostics for cursor
+	keymap.set("n", "<C-k>", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts("Previous Diagnostic"))
+	keymap.set("n", "<C-j>", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts("Next Diagnostic"))
 end
 
+require("user.core.diagnostics") -- use default vim diagnostic windows
+
 -- custom inlay diagnostic prefix
-vim.diagnostic.config({
-	virtual_text = {
-		prefix = "«",
-	},
-})
+-- vim.diagnostic.config({
+-- 	virtual_text = {
+-- 		prefix = "«",
+-- 	},
+-- })
 
 -- used to enable autocompletion (assign to every lsp server config)
 local capabilities = cmp_nvim_lsp.default_capabilities()
@@ -61,7 +69,7 @@ lspconfig["lua_ls"].setup({
 	},
 })
 
-require("lspconfig")["pyright"].setup({
+lspconfig["pyright"].setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
@@ -82,12 +90,13 @@ rt.setup({
 		},
 	},
 	server = {
+		capabilities = capabilities,
 		on_attach = function(_, bufnr)
 			-- default actions
 			on_attach(_, bufnr)
 			-- keymaps
-			vim.keymap.set("n", "gh", rt.hover_actions.hover_actions, { buffer = bufnr })
-			vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+			-- vim.keymap.set("n", "vh", rt.hover_actions.hover_actions, { buffer = bufnr })
+			-- vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
 		end,
 		settings = {
 			["rust-analyzer"] = {
@@ -100,3 +109,8 @@ rt.setup({
 })
 
 rt.inlay_hints.enable()
+
+lspconfig["zls"].setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+})

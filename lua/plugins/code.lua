@@ -21,6 +21,21 @@ return {
 			require("user.config.nvim-cmp") -- cmp + luasnip
 		end,
 	},
+	{
+		"stevearc/aerial.nvim",
+		ft = codefiles,
+		-- Optional dependencies
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-tree/nvim-web-devicons",
+		},
+		keys = {
+			{ "<leader>ca", "<CMD>AerialToggle<CR>", { desc = "Aerial: Toggle" } },
+		},
+		config = function()
+			require("user.config.aerial")
+		end,
+	},
 	-- quality of life
 	{
 		"tpope/vim-surround",
@@ -28,37 +43,23 @@ return {
 	},
 	{
 		"vim-scripts/ReplaceWithRegister",
-		event = "BufReadPre",
-	},
-	{
-		"numToStr/Comment.nvim",
-		keys = { { "gcc" }, { "gbc" }, { "gc", mode = "v" }, { "gb", mode = "v" } },
-		config = true,
+		keys = { { "gr" } },
+		event = "VeryLazy",
 	},
 	{
 		"windwp/nvim-autopairs",
 		event = "BufReadPre",
 		config = true,
 	},
-	-- {
-	-- 	"akinsho/toggleterm.nvim",
-	-- 	keys = {
-	-- 		{ "<leader>tt", ":ToggleTerm size=40<cr>", desc = { "Toggle Terminal" } },
-	-- 	},
-	-- 	config = true,
-	-- },
-	-- {
-	-- 	"xeluxee/competitest.nvim",
-	-- 	dependencies = {
-	-- 		"MunifTanjim/nui.nvim",
-	-- 	},
-	-- 	keys = {
-	-- 		{ "<leader>cr", "<cmd>CompetiTestRun<cr>", desc = "Run Competitest" },
-	-- 		{ "<leader>ca", "<cmd>CompetiTestAdd<cr>", desc = "Add Test" },
-	-- 		{ "<leader>ce", "<cmd>CompetiTestEdit<cr>", desc = "Edit Test" },
-	-- 	},
-	-- 	config = function()
-	-- 		require("user.config.competitest")
-	-- 	end,
-	-- },
+	{
+		"echasnovski/mini.nvim",
+		event = "VeryLazy",
+		version = false,
+		config = function()
+			require("mini.ai").setup({}) -- not really using it
+			require("mini.comment").setup({})
+			-- require("mini.pairs").setup({}) -- lags
+			-- require("mini.surround").setup({}) -- doesn't work well
+		end,
+	},
 }

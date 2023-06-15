@@ -1,3 +1,5 @@
+local codefiles = require("user.config.code-files")
+
 return {
 	{
 		"nvim-tree/nvim-tree.lua",
@@ -12,6 +14,24 @@ return {
 		end,
 	},
 	{
+		"stevearc/oil.nvim",
+		keys = {
+			{ "-", "<CMD>Oil<CR>", desc = "Open parent directory in buffer" },
+		},
+		opts = {},
+		-- Optional dependencies
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+	},
+	{
+		"folke/zen-mode.nvim",
+		keys = {
+			{ "<leader>z", "<cmd>ZenMode<CR>", desc = "Zen mode" },
+		},
+		opts = {
+			window = { width = 0.6 },
+		},
+	},
+	{
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.1",
 		dependencies = {
@@ -20,18 +40,18 @@ return {
 			"nvim-lua/plenary.nvim",
 		},
 		keys = {
-			{ "<leader>ff", "<cmd>Telescope find_files<CR>", desc = "Telescope: Files" },
+			-- { keymaps.lua: Telescope find_files (custom theme)},
 			{ "<leader>fe", "<cmd>Telescope file_browser<CR>", desc = "Telescope: Explorer" },
 			{ "<leader>fk", "<cmd>Telescope keymaps<CR>", desc = "Telescope: Keymaps" },
-			{ "<leader>fb", "<cmd>Telescope buffers<CR>", desc = "Telescope: Buffers" },
+			{ "<leader>fb", "<cmd>Telescope buffers theme=dropdown<CR>", desc = "Telescope: Buffers" },
 			{ "<leader>fh", "<cmd>Telescope help_tags<CR>", desc = "Telescope: Help Tags" },
 			{ "<leader>fd", "<cmd>Telescope diagnostics<CR>", desc = "Telescope: Diagnostics" },
-			{ "<leader>fs", "<cmd>Telescope lsp_document_symbols<CR>", desc = "Telescope: Document Symbols" },
-			{ "<leader>ft", "<cmd>Telescope treesitter<CR>", desc = "Telescope: Treesitter" },
+			-- { "<leader>fs", "<cmd>Telescope lsp_document_symbols<CR>", desc = "Telescope: Document Symbols" },
+			-- { "<leader>ft", "<cmd>Telescope treesitter<CR>", desc = "Telescope: Treesitter" },
 			{ "<leader>/", "<cmd>Telescope live_grep<CR>", desc = "Telescope: Grep" },
 			{
 				"<leader>,",
-				"<cmd>cd C:Users\\Sebastian\\Appdata\\Local\\nvim | Telescope find_files<CR>",
+				"<cmd>cd ~/.config/nvim | Telescope find_files theme=dropdown<CR>",
 				desc = "Open Config",
 			},
 		},
@@ -41,14 +61,33 @@ return {
 	},
 	{
 		"ggandor/leap.nvim",
-		event = "BufReadPre",
-		config = function()
-			require("leap").add_default_mappings()
-		end,
+		event = "VeryLazy",
+		keys = {
+			{ "<leader>s", "<Plug>(leap-forward-to)", "Leap: Forward" },
+			{ "<leader>S", "<Plug>(leap-backward-to)", "Leap: Backward" },
+		},
 	},
 	{
 		"ggandor/flit.nvim",
-		event = "BufReadPre",
+		event = "VeryLazy",
 		config = true,
+	},
+	{
+		"thePrimeagen/harpoon",
+		ft = codefiles,
+		keys = {
+			{ "<leader>he", ":lua require('harpoon.ui').toggle_quick_menu()<CR>", "Harpoon: Edit" },
+			{ "<leader>ha", ":lua require('harpoon.mark').add_file()<CR>", "Harpoon: Add File" },
+			{ "<leader>1", ":lua require('harpoon.ui').nav_file(1)<CR>", "Harpoon: Goto 1" },
+			{ "<leader>2", ":lua require('harpoon.ui').nav_file(2)<CR>", "Harpoon: Goto 2" },
+			{ "<leader>3", ":lua require('harpoon.ui').nav_file(3)<CR>", "Harpoon: Goto 3" },
+			{ "<leader>4", ":lua require('harpoon.ui').nav_file(4)<CR>", "Harpoon: Goto 4" },
+		},
+		opts = {
+			tabline = true,
+			menu = {
+				borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+			},
+		},
 	},
 }

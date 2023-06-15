@@ -11,7 +11,7 @@ treesitter.setup({
 		enable = true,
 	},
 	-- enable indentation
-	indent = { enable = true, disable = { "python" } }, --python indenting is actually broken
+	indent = { enable = true, disable = { "python" } }, --python indenting is currently broken
 	-- enable autotagging (w/ nvim-ts-autotag plugin)
 	autotag = { enable = true },
 	-- ensure these language parsers are installed
@@ -21,6 +21,8 @@ treesitter.setup({
 		"python",
 		"toml",
 		"markdown_inline",
+		"kdl",
+		"zig",
 	},
 	-- auto install above language parsers
 	auto_install = true,

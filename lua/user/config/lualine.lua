@@ -12,7 +12,7 @@ local function get_named_open_buffer_count()
 			count = count + 1
 		end
 	end
-	return " " .. count
+	return "B: " .. count
 end
 
 lualine.setup({
@@ -22,10 +22,19 @@ lualine.setup({
 	},
 	sections = {
 		lualine_a = { "mode" },
-		lualine_b = { "diagnostics" },
+		lualine_b = {
+			{
+				"diagnostics",
+				sources = { "nvim_lsp", "nvim_diagnostic" },
+				sections = { "error", "warn" },
+				symbols = { error = "E: ", warn = "W: " },
+				always_visible = false,
+			},
+		},
 		lualine_c = {
-			{ get_named_open_buffer_count, color = "lualine_b_normal" },
+			-- { get_named_open_buffer_count, color = "lualine_b_normal" },
 			"filename",
+			"lsp_progress",
 		},
 		lualine_x = { "filetype" },
 		lualine_y = { "progress" },
