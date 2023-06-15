@@ -27,3 +27,5 @@ treesitter.setup({
 	-- auto install above language parsers
 	auto_install = true,
 })
+
+vim.api.nvim_set_hl(0, "@comment.rust", { link = "SagaBorder" }) -- adds background to differentiate it from inlay hints
