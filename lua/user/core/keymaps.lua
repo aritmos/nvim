@@ -21,8 +21,6 @@ map("n", "J", "<C-d>zz", { desc = "Goto Half Page Down" })
 map("n", "K", "<C-u>zz", { desc = "Goto Half Page Up" })
 map("n", "H", "^", { desc = "Goto Line Start" })
 map("n", "L", "$", { desc = "Goto Line End" })
-map("n", "<leader><up>", "<C-i>", { desc = "Jump Forward" })
-map("n", "<leader><down>", "<C-o>", { desc = "Jump Back" })
 
 -- add lines
 map("n", "<leader>o", "o<ESC>")
@@ -34,11 +32,11 @@ map("n", "<leader>J", "J")
 -- buffers
 map("n", "<leader>w", ":up<CR>", { silent = true })
 map("n", "<leader>q", ":bd<CR>", { silent = true })
-map("n", "<leader>x", ":q!<CR>")
+-- map("n", "<leader>x", ":q!<CR>") -- disabled as it's a bad habit
 
 -- yank and paste
 map("n", "Y", "y$")
-map("n", "<leader>y", "gg<S-v>Gy", { desc = "Yank File" })
+map("n", "<leader>y", "<CMD>%y<CR>", { desc = "Yank File" })
 map("n", "<C-p>", '"0p', { desc = "Paste Yanked" })
 map("n", "<C-P>", '"0P', { desc = "Paste Yanked (Above)" })
 
@@ -55,16 +53,16 @@ map("v", ">", ">gv", { desc = "Unindent" })
 -- map("n", "<leader>se", "<C-w>=", { desc = "Split: Make Equal" })
 -- map("n", "<leader>sx", ":close<CR>", { desc = "Split: Close" })
 
-map("n", "<up>", ":wincmd k<CR>", { desc = "Goto: Split Up" })
-map("n", "<down>", ":wincmd j<CR>", { desc = "Goto: Split Down" })
-map("n", "<left>", ":wincmd h<CR>", { desc = "Goto: Split Left" })
-map("n", "<right>", ":wincmd l<CR>", { desc = "Goto: Split Right" })
+map("n", "gk", ":wincmd k<CR>", { desc = "Move: Split Up" })
+map("n", "gj", ":wincmd j<CR>", { desc = "Move: Split Down" })
+map("n", "gh", ":wincmd h<CR>", { desc = "Move: Split Left" })
+map("n", "gl", ":wincmd l<CR>", { desc = "Move: Split Right" })
 
--- tabs
-map("n", "<leader>to", ":tabnew<CR>", { desc = "Tab: New" })
-map("n", "<leader>tx", ":tabclose<CR>", { desc = "Tab: Close" })
-map("n", "<leader>tk", ":tabn<CR>", { desc = "Tab: Next" })
-map("n", "<leader>tj", ":tabp<CR>", { desc = "Tab: Prev" })
+-- tabs (unused due to harpoon)
+-- map("n", "<leader>to", ":tabnew<CR>", { desc = "Tab: New" })
+-- map("n", "<leader>tx", ":tabclose<CR>", { desc = "Tab: Close" })
+-- map("n", "<leader>tk", ":tabn<CR>", { desc = "Tab: Next" })
+-- map("n", "<leader>tj", ":tabp<CR>", { desc = "Tab: Prev" })
 
 -- misc
 map("n", "<leader>nh", ":nohl<CR>", { desc = "Remove Highlight" })
@@ -72,7 +70,7 @@ map("n", "x", '"_x') -- dont delete text into register
 
 -- PLUGINS --
 map("n", "<leader>pl", ":Lazy<CR>", { desc = "Plugins: Lazy" })
-map("t", "<Esc>", "<C-\\><C-n>", { desc = "Escape Terminal" })
+-- map("t", "<Esc>", "<C-\\><C-n>", { desc = "Escape Terminal" })
 
 function minimal()
 	return require("telescope.themes").get_dropdown({
