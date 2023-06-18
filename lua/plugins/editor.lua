@@ -3,8 +3,9 @@ local codefiles = require("user.config.code-files")
 return {
 	{
 		"nvim-tree/nvim-tree.lua",
+		event = "VeryLazy",
 		keys = {
-			{ "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "NvimTree" },
+			{ "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "NvimTree: Toggle" },
 		},
 		dependencies = {
 			"nvim-tree/nvim-web-devicons",
@@ -16,7 +17,7 @@ return {
 	{
 		"stevearc/oil.nvim",
 		keys = {
-			{ "-", "<CMD>Oil<CR>", desc = "Open parent directory in buffer" },
+			{ "-", "<CMD>Oil<CR>", desc = "Oil: Open parent directory in buffer" },
 		},
 		opts = {},
 		-- Optional dependencies
