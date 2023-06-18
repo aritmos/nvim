@@ -1,6 +1,7 @@
 {
     "diagnostics.globals": [
         "vim",
-        "ziglings"
+        "ziglings",
+        "minimal"
     ]
 }

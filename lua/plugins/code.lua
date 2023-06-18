@@ -21,21 +21,6 @@ return {
 			require("user.config.nvim-cmp") -- cmp + luasnip
 		end,
 	},
-	{
-		"stevearc/aerial.nvim",
-		ft = codefiles,
-		-- Optional dependencies
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
-			"nvim-tree/nvim-web-devicons",
-		},
-		keys = {
-			{ "<leader>pa", "<CMD>AerialToggle<CR>", { desc = "Aerial: Toggle" } },
-		},
-		config = function()
-			require("user.config.aerial")
-		end,
-	},
 	-- quality of life
 	{
 		"tpope/vim-surround",
