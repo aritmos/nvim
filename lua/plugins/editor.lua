@@ -63,9 +63,10 @@ return {
 	{
 		"ggandor/leap.nvim",
 		event = "VeryLazy",
+		config = true,
 		keys = {
-			{ "<leader>s", "<Plug>(leap-forward-to)", "Leap: Forward" },
-			{ "<leader>S", "<Plug>(leap-backward-to)", "Leap: Backward" },
+			{ "s", "<Plug>(leap-forward-to)", "Leap: Forward" },
+			{ "S", "<Plug>(leap-backward-to)", "Leap: Backward" },
 		},
 	},
 	{
