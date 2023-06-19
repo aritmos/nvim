@@ -70,7 +70,6 @@ map("n", "x", '"_x') -- dont delete text into register
 
 -- PLUGINS --
 map("n", "<leader>pl", ":Lazy<CR>", { desc = "Plugins: Lazy" })
--- map("t", "<Esc>", "<C-\\><C-n>", { desc = "Escape Terminal" })
 
 function minimal()
 	return require("telescope.themes").get_dropdown({

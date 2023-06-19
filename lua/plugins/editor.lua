@@ -17,7 +17,7 @@ return {
 	{
 		"stevearc/oil.nvim",
 		keys = {
-			{ "-", "<CMD>Oil<CR>", desc = "Oil: Open parent directory in buffer" },
+			{ "<leader>po", "<CMD>Oil<CR>", desc = "Oil: Open parent directory in buffer" },
 		},
 		opts = {},
 		-- Optional dependencies
