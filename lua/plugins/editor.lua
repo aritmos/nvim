@@ -41,19 +41,41 @@ return {
 			"nvim-lua/plenary.nvim",
 		},
 		keys = {
+			-- General menus:
 			-- { keymaps.lua: Telescope find_files (custom theme)},
 			{ "<leader>fe", "<cmd>Telescope file_browser<CR>", desc = "Telescope: Explorer" },
 			{ "<leader>fk", "<cmd>Telescope keymaps<CR>", desc = "Telescope: Keymaps" },
 			{ "<leader>fb", "<cmd>Telescope buffers theme=dropdown<CR>", desc = "Telescope: Buffers" },
 			{ "<leader>fh", "<cmd>Telescope help_tags<CR>", desc = "Telescope: Help Tags" },
 			{ "<leader>fd", "<cmd>Telescope diagnostics<CR>", desc = "Telescope: Diagnostics" },
-			-- { "<leader>fs", "<cmd>Telescope lsp_document_symbols<CR>", desc = "Telescope: Document Symbols" },
-			-- { "<leader>ft", "<cmd>Telescope treesitter<CR>", desc = "Telescope: Treesitter" },
 			{ "<leader>/", "<cmd>Telescope live_grep<CR>", desc = "Telescope: Grep" },
 			{
 				"<leader>,",
-				"<cmd>cd ~/.config/nvim | Telescope find_files theme=dropdown<CR>",
+				"<cmd>lua vim.cmd('cd ' .. vim.fn.stdpath('config'))<CR>"
+					.. "<cmd> Telescope find_files theme=dropdown<CR>",
 				desc = "Open Config",
+			},
+
+			-- Treesitter menus: (for use in Rust)
+			{
+				"<leader>tt",
+				"<CMD>lua require('telescope.builtin').lsp_document_symbols()<CR>",
+				desc = "Telescope: Treesitter",
+			},
+			{
+				"<leader>tf",
+				"<CMD>lua require('telescope.builtin').lsp_document_symbols({symbols = {'function'}})<CR>",
+				desc = "Telescope: Treesitter Functions",
+			},
+			{
+				"<leader>ti",
+				"<CMD>lua require('telescope.builtin').lsp_document_symbols({symbols = {'object'}})<CR>",
+				desc = "Telescope: Treesitter Implementations",
+			},
+			{
+				"<leader>ts",
+				"<CMD>lua require('telescope.builtin').lsp_document_symbols({symbols = {'struct', 'enum'}})<CR>",
+				desc = "Telescope: Treesitter Structs/Enums",
 			},
 		},
 		config = function()
