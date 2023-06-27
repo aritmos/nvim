@@ -27,6 +27,15 @@ return {
 		end,
 	},
 	{
+		"Canop/nvim-bacon",
+		ft = "rust",
+		keys = {
+			{ "<leader>bd", ":BaconList<CR>", desc = { "Bacon: Display" } },
+			{ "<leader>br", ":BaconLoad<CR>", desc = { "Bacon: Load" } },
+			{ "<leader>bn", ":BaconNext<CR>", desc = { "Bacon: Next" } },
+		},
+	},
+	{
 		"glepnir/lspsaga.nvim",
 		ft = codefiles,
 		branch = "main",
@@ -56,21 +65,4 @@ return {
 			require("user.config.lsp.null-ls")
 		end,
 	},
-	-- {
-	-- 	"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-	-- 	ft = codefiles,
-	-- 	keys = {
-	-- 		-- { "<leader>l", ":lua require('lsp_lines').toggle()<cr>", desc = "Lsp Lines: Toggle", silent = true },
-	-- 		{
-	-- 			"<leader>l",
-	-- 			":lua Toggle_diagnostics_virtual_lines()<cr>",
-	-- 			desc = "LSP: Toggle Line Diagnostics",
-	-- 			silent = true,
-	-- 		},
-	-- 	},
-	-- 	config = function()
-	-- 		require("lsp_lines").setup()
-	-- 		require("lsp_lines").toggle() -- start disabled
-	-- 	end,
-	-- },
 }
