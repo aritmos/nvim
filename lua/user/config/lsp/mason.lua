@@ -36,7 +36,9 @@ mason_null_ls.setup({
 	ensure_installed = {
 		"autopep8",
 		"stylua",
-		"rustfmt",
+		-- "rustfmt", -- for some reason installing rustfmt here breaks the autoformatting that it should provide
+		-- im guessing that it instead uses the rustup version which appears to work. in the future
+		-- uncomment it and see if the null_ls version works
 	},
 	-- auto-install configured formatters & linters (with null-ls)
 	automatic_installation = true,
