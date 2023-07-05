@@ -85,13 +85,6 @@ function minimal()
 	})
 end
 
-map(
-	"n",
-	"<leader>ff",
-	':lua require("telescope.builtin").find_files(minimal())<CR>',
-	{ desc = "Telescope: Find Files" }
-)
-
 -- ACTIONS
 
 -- Ziglings

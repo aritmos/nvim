@@ -43,6 +43,11 @@ return {
 		keys = {
 			-- General menus:
 			-- { keymaps.lua: Telescope find_files (custom theme)},
+			{
+				"<leader>ff",
+				':lua require("telescope.builtin").find_files(require("user.extensions.telescope").minimal_theme())<CR>',
+				{ desc = "Telescope: Find Files" },
+			},
 			{ "<leader>fe", "<cmd>Telescope file_browser<CR>", desc = "Telescope: Explorer" },
 			{ "<leader>fk", "<cmd>Telescope keymaps<CR>", desc = "Telescope: Keymaps" },
 			{ "<leader>fb", "<cmd>Telescope buffers theme=dropdown<CR>", desc = "Telescope: Buffers" },
@@ -52,7 +57,7 @@ return {
 			{
 				"<leader>,",
 				"<cmd>lua vim.cmd('cd ' .. vim.fn.stdpath('config'))<CR>"
-					.. "<cmd> Telescope find_files theme=dropdown<CR>",
+					.. "<CMD>lua require('telescope.builtin').find_files(require('user.extensions.telescope').minimal_theme())<CR>",
 				desc = "Open Config",
 			},
 
@@ -76,6 +81,11 @@ return {
 				"<leader>ts",
 				"<CMD>lua require('telescope.builtin').lsp_document_symbols({symbols = {'struct', 'enum'}})<CR>",
 				desc = "Telescope: Treesitter Structs/Enums",
+			},
+			{
+				"<leader>ta",
+				"<CMD>lua require('user.extensions.telescope').asm()<CR>",
+				desc = "Telescope: Assembly",
 			},
 		},
 		config = function()
