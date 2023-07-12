@@ -43,8 +43,6 @@ return {
 		config = function()
 			require("mini.ai").setup({}) -- not really using it
 			require("mini.comment").setup({})
-			-- require("mini.pairs").setup({}) -- lags
-			-- require("mini.surround").setup({}) -- doesn't work well
 		end,
 	},
 }

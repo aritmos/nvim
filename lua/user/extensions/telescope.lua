@@ -8,7 +8,7 @@ local conf = require("telescope.config").values
 local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 
-local cmd = "cargo asm --lib --native"
+local cmd = "cargo asm --rust --simplify --native --lib"
 
 local function get_results()
 	local output = vim.fn.systemlist(cmd)
@@ -52,7 +52,7 @@ local asm = function(opts)
 				actions.select_default:replace(function()
 					actions.close(prompt_bufnr)
 					local selection = action_state.get_selected_entry()
-					vim.cmd("term " .. "cargo asm --lib " .. selection.value .. " --rust --native --simplify")
+					vim.cmd("term " .. cmd .. " " .. selection.value)
 					vim.api.nvim_buf_set_name(0, selection.ordinal)
 				end)
 				return true

@@ -5,16 +5,14 @@ if not saga_status then
 end
 
 saga.setup({
-	-- keybinds for navigation in lspsaga window
-	scroll_preview = { scroll_down = "<C-f>", scroll_up = "<C-b>" },
-	-- use enter to open file with definition preview
-	definition = {
-		edit = "<CR>",
-	},
 	ui = {
 		title = false,
 		code_action = "A", -- change lightbulb
 		border = "solid",
+	},
+	hover = {
+		max_width = 0.5,
+		open_link = "gl",
 	},
 	lightbulb = { -- "lightbulb" in gutter only
 		enable = true,

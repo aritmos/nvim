@@ -25,14 +25,3 @@ vim.diagnostic.config({
 		prefix = "",
 	},
 })
-
--- function Toggle_diagnostic_virtual_lines()
--- 	local config = vim.diagnostic.config()
--- 	if config.virtual_lines == false then
--- 		config.virtual_lines = { only_current_line = true }
--- 	else
--- 		config.virtual_lines = false
--- 	end
--- 	vim.diagnostic.config(config)
--- end
---

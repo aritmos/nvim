@@ -11,18 +11,8 @@ return {
 	{
 		"nvim-lualine/lualine.nvim",
 		lazy = false,
-		-- dependencies = {
-		-- 	"arkav/lualine-lsp-progress",
-		-- },
 		config = function()
 			require("user.config.lualine")
 		end,
 	},
-	-- {
-	-- 	"startup-nvim/startup.nvim",
-	-- 	lazy = false,
-	-- 	config = function()
-	-- 		require("user.config.startup")
-	-- 	end,
-	-- },
 }

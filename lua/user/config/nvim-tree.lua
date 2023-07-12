@@ -20,8 +20,8 @@ function M.on_attach(bufnr)
 	api.config.mappings.default_on_attach(bufnr)
 
 	-- custom maps
-	vim.keymap.set("n", "<S-Tab>", M.cd, opts("CD"))
-	vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
+	vim.keymap.del("n", "<Tab>", { buffer = bufnr })
+	vim.keymap.set("n", "<Tab>", M.cd, opts("CD"))
 end
 
 function M.cd()
