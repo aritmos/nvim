@@ -113,7 +113,8 @@ rt.setup({
 
 rt.inlay_hints.enable()
 
-lspconfig["zls"].setup({
+-- Zig
+lspconfig.zls.setup({
     capabilities = capabilities,
     on_attach = on_attach,
 })
