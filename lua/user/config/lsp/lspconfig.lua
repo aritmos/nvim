@@ -20,19 +20,20 @@ local on_attach = function(client, bufnr)
     end
 
     -- set keybinds
-    keymap.set("n", "<leader>vi", "<cmd>Lspsaga lsp_finder<CR>", opts("View Info"))                -- show definition, references
+    keymap.set("n", "<leader>vi", "<cmd>Lspsaga finder<CR>", opts("View Info"))                    -- show definition, references
     keymap.set("n", "<leader>vh", "<cmd>Lspsaga hover_doc<CR>", opts("View Hover"))                -- show diagnostics for cursor
     keymap.set("n", "<leader>vH", "<cmd>Lspsaga hover_doc ++keep<CR>", opts("View Hover and Pin")) -- show diagnostics for cursor
     keymap.set("n", "<leader>vD", "<cmd>Lspsaga hover_doc<CR>", opts("View Documentation"))
 
-    keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts("Goto Declaration"))       -- got to declaration
-    keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts("Goto Implementation")) -- go to implementation
+    keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts("Goto Declaration"))
+    keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts("Goto Implementation"))
 
-    keymap.set("n", "<leader>a", "<cmd>Lspsaga code_action<CR>", opts("Code Action"))               -- see available code actions
-    keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opts("Rename"))                        -- smart rename
+    keymap.set("n", "<leader>a", "<cmd>Lspsaga code_action<CR>", opts("Code Action"))
+    keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opts("Rename"))
 
     -- use native diagnostics
-    keymap.set("n", "<leader>d", "<cmd>lua vim.diagnostic.open_float()<CR>", opts("Diagnostic")) -- show diagnostics for cursor
+    keymap.set("n", "<leader>d", "<cmd>lua vim.diagnostic.open_float()<CR>", opts("Diagnostic"))
+    -- keymap.set("n", "<leader>D", "<cmd>Lspsaga show_workspace_diagnostics ++normal<CR>", opts("Workspace Diagnostics"))
     keymap.set("n", "<C-k>", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts("Previous Diagnostic"))
     keymap.set("n", "<C-j>", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts("Next Diagnostic"))
 end
@@ -114,7 +115,20 @@ rt.setup({
 rt.inlay_hints.enable()
 
 -- Zig
+local zig_on_attach = function(client, bufnr)
+    on_attach(client, bufnr)
+
+    -- Ziglings
+    local fn = "require('user.extensions.ziglings').zellij_build_current()"
+    vim.cmd("command! Ziglings lua " .. fn)
+    -- for now we automatically register the keybind to run `:Ziglings`
+    -- later when I finish Ziglings we can remove it.
+    -- TODO: see if there's some way to only load this if we are in the ziglings folder (?)
+    vim.api.nvim_set_keymap("n", "<leader><S-z>", "<CMD>Ziglings<CR>",
+        { noremap = true, silent = true, desc = "Ziglings Build Current" })
+end
+
 lspconfig.zls.setup({
     capabilities = capabilities,
-    on_attach = on_attach,
+    on_attach = zig_on_attach,
 })
