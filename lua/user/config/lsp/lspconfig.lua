@@ -42,8 +42,13 @@ end
 require("user.core.diagnostics")
 
 -- format files on save
-local code_files = require("user.config.code-files")
-vim.api.nvim_command("autocmd BufWritePre *.rs,*.lua,*.py,*.zig lua vim.lsp.buf.format()")
+local code_file_exts = require("user.config.code-files").file_exts
+local exts = ""
+for _, ext in ipairs(code_file_exts) do
+    exts = exts .. "*." .. ext .. ","
+end
+exts = exts:sub(1, -2) -- remove the trailing comma
+vim.api.nvim_command("autocmd BufWritePre " .. exts .. " lua vim.lsp.buf.format()")
 
 -- used to enable autocompletion (assign to every lsp server config)
 local capabilities = cmp_nvim_lsp.default_capabilities()

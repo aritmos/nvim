@@ -1,4 +1,4 @@
-local codefiles = require("user.config.code-files")
+local codefiles = require("user.config.code-files").file_types
 
 return {
     -- lsp

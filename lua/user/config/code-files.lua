@@ -1,2 +1,5 @@
 -- files for which lsp and cmp should load
-return { "rust", "lua", "python", "zig" }
+return {
+    file_types = { "rust", "lua", "python", "zig", "go" },
+    file_exts = { "rs", "lua", "py", "zig", "go" },
+}
