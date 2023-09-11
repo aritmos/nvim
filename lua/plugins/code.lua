@@ -48,5 +48,13 @@ return {
     {
         "mfussenegger/nvim-dap",
         ft = codefiles,
-    }
+    },
+    -- golang
+    {
+        "ray-x/go.nvim",
+        config = function()
+            require("go").setup()
+        end,
+        ft = { "go", "gomod" },
+    },
 }
