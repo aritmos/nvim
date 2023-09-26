@@ -41,15 +41,17 @@ cmp.setup({
         -- autocompletes if menu is available
         -- if it is within a snippet expand/jump it does that
         -- else behaves as a normal <Tab>
-        ["<Tab>"] = cmp.mapping(function(fallback)
-            if luasnip.expand_or_jumpable() then
+        ["<Tab>"] = function(fallback)
+            if cmp.visible() then                    -- selects element in completion menu
+                cmp.confirm({ select = true })
+            elseif luasnip.expand_or_jumpable() then -- expands/jumps within snippets
                 luasnip.expand_or_jump()
-            elseif cmp.visible() then
+            elseif has_words_before() then           -- completes words and such
                 cmp.complete()
-            else
+            else                                     -- behave like a normal <Tab>
                 fallback()
             end
-        end, { "i", "s" }),
+        end,
 
         ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
