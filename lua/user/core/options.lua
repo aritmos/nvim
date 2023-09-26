@@ -2,7 +2,7 @@ local o = vim.opt
 local g = vim.g
 
 if g.neovide then
-	vim.g.neovide_scale_factor = 1.05
+    vim.g.neovide_scale_factor = 1.05
 end
 
 -- lines
