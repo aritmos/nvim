@@ -9,4 +9,10 @@ return {
             require("user.config.treesitter")
         end,
     },
+    {
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+        },
+    }
 }

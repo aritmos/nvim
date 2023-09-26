@@ -41,7 +41,6 @@ return {
         event = "VeryLazy",
         version = false,
         config = function()
-            require("mini.ai").setup({}) -- not really using it
             require("mini.comment").setup({})
         end,
     },
@@ -52,6 +51,11 @@ return {
     -- golang
     {
         "ray-x/go.nvim",
+        dependencies = {
+            "ray-x/guihua.lua",
+            "neovim/nvim-lspconfig",
+            "nvim-treesitter/nvim-treesitter"
+        },
         config = function()
             require("go").setup()
         end,
