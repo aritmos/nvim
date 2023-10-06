@@ -29,7 +29,15 @@ return {
             { "<leader>pz", "<cmd>ZenMode<CR>", desc = "Zen mode" },
         },
         opts = {
-            window = { width = 0.6 },
+            window = {
+                backdrop = 0.8,
+                width = 0.7,
+            },
+            plugins = {
+                options = {
+                    wrap = false -- disable line wrap
+                }
+            }
         },
     },
     {

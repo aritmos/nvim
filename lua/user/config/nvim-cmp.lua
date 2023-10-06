@@ -19,7 +19,7 @@ end
 -- load friendly snippets (magically finds installed snippet extensions)
 require("luasnip/loaders/from_vscode").lazy_load()
 -- load snippet extensions
-require("luasnip/loaders/from_vscode").load_standalone({ path = "./lua/user/extensions/.code-snippets" })
+require("luasnip/loaders/from_vscode").load_standalone({ path = "./lua/user/extensions/e.code-snippets" })
 
 vim.opt.completeopt = "menu,menuone,noselect"
 
@@ -42,13 +42,11 @@ cmp.setup({
         -- if it is within a snippet expand/jump it does that
         -- else behaves as a normal <Tab>
         ["<Tab>"] = function(fallback)
-            if cmp.visible() then                    -- selects element in completion menu
+            if cmp.visible() then          -- selects element in completion menu
                 cmp.confirm({ select = true })
-            elseif luasnip.expand_or_jumpable() then -- expands/jumps within snippets
-                luasnip.expand_or_jump()
-            elseif has_words_before() then           -- completes words and such
+            elseif has_words_before() then -- completes words and such
                 cmp.complete()
-            else                                     -- behave like a normal <Tab>
+            else                           -- behave like a normal <Tab>
                 fallback()
             end
         end,
@@ -56,8 +54,8 @@ cmp.setup({
         ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-                luasnip.jump(-1)
+            elseif luasnip.expand_or_jumpable() then -- expands/jumps within snippets
+                luasnip.expand_or_jump()
             else
                 fallback()
             end

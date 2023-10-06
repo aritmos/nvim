@@ -1,0 +1,6 @@
+{
+    "print_line" : {
+        "prefix": "pl",
+        "body": "println!(\"{${1}}\");"
+    }
+}
