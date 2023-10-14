@@ -23,8 +23,9 @@ return {
     },
     -- quality of life
     {
-        "tpope/vim-surround",
+        "kylechui/nvim-surround",
         event = "BufReadPre",
+        config = true,
     },
     {
         "vim-scripts/ReplaceWithRegister",
