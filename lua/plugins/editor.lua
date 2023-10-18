@@ -42,7 +42,7 @@ return {
     },
     {
         "nvim-telescope/telescope.nvim",
-        tag = "0.1.1",
+        tag = "0.1.4",
         dependencies = {
             "nvim-telescope/telescope-fzy-native.nvim",
             "nvim-telescope/telescope-file-browser.nvim",
