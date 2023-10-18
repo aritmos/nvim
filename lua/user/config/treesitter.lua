@@ -29,28 +29,27 @@ treesitter.setup({
     auto_install = true,
 })
 
-vim.api.nvim_set_hl(0, "@comment.rust", { link = "SagaBorder" }) -- adds background to differentiate it from inlay hints
+-- adds background to differentiate it from inlay hints
+vim.api.nvim_set_hl(0, "@comment.rust", { link = "SagaBorder" })
 
 -- Treesitter textobjects
 require("nvim-treesitter.configs").setup({
-    require 'nvim-treesitter.configs'.setup {
-        textobjects = {
-            select = {
-                enable = true,
-                lookahead = true,
-                keymaps = {
-                    ["af"] = "@function.outer",
-                    ["if"] = "@function.inner",
-                    ["ac"] = "@class.outer", -- in Rust class includes: struct, enum, trait, impl, ...
-                    ["ic"] = "@class.inner",
-                },
-                selection_modes = {
-                    ['@parameter.outer'] = 'v', -- charwise
-                    ['@function.outer'] = 'V',  -- linewise
-                    ['@class.outer'] = '<c-v>', -- blockwise
-                },
-                include_surrounding_whitespace = true,
+    textobjects = {
+        select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+                ["af"] = "@function.outer",
+                ["if"] = "@function.inner",
+                ["ac"] = "@class.outer", -- in Rust class includes: struct, enum, trait, impl, ...
+                ["ic"] = "@class.inner",
             },
+            selection_modes = {
+                ['@parameter.outer'] = 'v', -- charwise
+                ['@function.outer'] = 'V',  -- linewise
+                ['@class.outer'] = '<c-v>', -- blockwise
+            },
+            include_surrounding_whitespace = true,
         },
-    }
+    },
 })

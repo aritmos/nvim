@@ -102,6 +102,8 @@ rt.setup({
     server = {
         capabilities = capabilities,
         on_attach = function(_, bufnr)
+            -- set comment highlighting to have a background
+            vim.api.nvim_set_hl(0, "@comment.rust", { link = "SagaBorder" })
             -- default actions
             on_attach(_, bufnr)
         end,
