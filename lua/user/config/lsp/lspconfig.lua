@@ -10,10 +10,14 @@ if not cmp_nvim_lsp_status then
     return
 end
 
+
+-- -------------------
+-- | GLOBAL KEYBINDS |
+-- -------------------
+
 local keymap = vim.keymap -- for conciseness
 
--- enable keybinds only for when lsp server available
-local on_attach = function(client, bufnr)
+local keymaps = function(client, bufnr)
     -- keybind options
     local function opts(desc)
         return { desc = "LSP: " .. desc, noremap = true, silent = true, buffer = bufnr }
@@ -38,10 +42,18 @@ local on_attach = function(client, bufnr)
     keymap.set("n", "<C-j>", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts("Next Diagnostic"))
 end
 
+
+-- ---------------
+-- | DIAGNOSTICS |
+-- ---------------
+
 -- use default vim diagnostic windows
 require("user.core.diagnostics")
 
--- format files on save
+-- ------------------
+-- | FORMAT ON SAVE |
+-- ------------------
+
 local code_file_exts = require("user.config.code-files").file_exts
 local exts = ""
 for _, ext in ipairs(code_file_exts) do
@@ -50,8 +62,58 @@ end
 exts = exts:sub(1, -2) -- remove the trailing comma
 vim.api.nvim_command("autocmd BufWritePre " .. exts .. " lua vim.lsp.buf.format()")
 
+
+-- ------------------
+-- | AUTOCOMPLETION |
+-- ------------------
+
 -- used to enable autocompletion (assign to every lsp server config)
 local capabilities = cmp_nvim_lsp.default_capabilities()
+
+
+-- ---------------
+-- | INLAY HINTS |
+-- ---------------
+
+if vim.version().minor >= 10 then
+    vim.lsp.inlay_hint.enable()
+end
+
+local lsp_inlayhints = require("lsp-inlayhints")
+lsp_inlayhints.setup({
+    inlay_hints = {
+        type_hints = {
+            prefix = "~ ",
+            remove_colon_start = true,
+        }
+    }
+})
+
+vim.api.nvim_set_hl(0, "LspInlayHint", { link = "Comment" })
+
+vim.api.nvim_create_user_command(
+    'InlayHintsToggle',
+    function()
+        require("lsp-inlayhints").toggle()
+    end,
+    {}
+)
+
+-- -------------
+-- | ON ATTACH |
+-- -------------
+
+local on_attach = function(client, bufnr)
+    -- register keymaps
+    keymaps(client, bufnr)
+    -- this is not automatically loading for some reason
+    require("lsp-inlayhints").on_attach(client, bufnr)
+    -- require("lsp-inlayhints").show()
+end
+
+-- ------------------------
+-- | SERVER CONFIGURATION |
+-- ------------------------
 
 -- configure lua server (with special settings)
 lspconfig.lua_ls.setup({
@@ -74,6 +136,8 @@ lspconfig.lua_ls.setup({
     },
 })
 
+
+-- configure python
 lspconfig.pylsp.setup({
     on_attach = on_attach,
     capabilities = capabilities,
@@ -84,14 +148,10 @@ lspconfig.pyright.setup({
     capabilities = capabilities,
 })
 
--- configure rust-tools (with special settings)
-local status, rt = pcall(require, "rust-tools")
-if not status then
-    print("Rust-tools not installed")
-    return
-end
+-- configure rust (rustaceanvim)
+-- https://github.com/mrcjkb/rustaceanvim/blob/master/doc/rustaceanvim.txt
 
-rt.setup({
+vim.g.rustaceanvim = {
     tools = {
         inlay_hints = {
             parameter_hints_prefix = "<- ",
@@ -101,12 +161,7 @@ rt.setup({
     },
     server = {
         capabilities = capabilities,
-        on_attach = function(_, bufnr)
-            -- set comment highlighting to have a background
-            vim.api.nvim_set_hl(0, "@comment.rust", { link = "SagaBorder" })
-            -- default actions
-            on_attach(_, bufnr)
-        end,
+        on_attach = on_attach,
         settings = {
             ["rust-analyzer"] = {
                 checkOnSave = true,
@@ -117,9 +172,7 @@ rt.setup({
             },
         },
     },
-})
-
-rt.inlay_hints.enable()
+}
 
 -- Zig
 local zig_on_attach = function(client, bufnr)
@@ -160,3 +213,18 @@ lspconfig.gopls.setup({
         }
     }
 })
+
+-- C/C++
+
+lspconfig.clangd.setup({
+    on_attach = function(client, bufnr)
+        client.server_capabilities.signatureHelpProvider = false
+        on_attach(client, bufnr)
+    end,
+    capabilities = capabilities,
+    filetypes = { "c", "cpp" },
+})
+-- lspconfig.clangd_format.setup({
+--     on_attach = on_attach,
+--     capabilities = capabilities
+-- })

@@ -16,6 +16,14 @@ o.shiftwidth = 4
 o.expandtab = true
 o.autoindent = true
 
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "c", "cpp" },
+    callback = function()
+        vim.opt_local.shiftwidth = 2
+        vim.opt_local.tabstop = 2
+    end,
+})
+
 -- line wrapping
 o.wrap = true
 

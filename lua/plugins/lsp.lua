@@ -1,3 +1,5 @@
+-- lsp related plugins
+
 local codefiles = require("user.config.code-files").file_types
 
 return {
@@ -18,7 +20,8 @@ return {
         "neovim/nvim-lspconfig",
         ft = codefiles,
         dependencies = {
-            "simrat39/rust-tools.nvim",          -- config dependency
+            "lvimuser/lsp-inlayhints.nvim",      -- config dependency
+            "mrcjkb/rustaceanvim",               -- config dependency
             "hrsh7th/cmp-nvim-lsp",              -- config dependency
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim", -- server dependency
@@ -27,15 +30,6 @@ return {
         config = function()
             require("user.config.lsp.lspconfig")
         end,
-    },
-    {
-        "Canop/nvim-bacon",
-        ft = "rust",
-        keys = {
-            { "<leader>bd", ":BaconList<CR>", desc = { "Bacon: Display" } },
-            { "<leader>br", ":BaconLoad<CR>", desc = { "Bacon: Load" } },
-            { "<leader>bn", ":BaconNext<CR>", desc = { "Bacon: Next" } },
-        },
     },
     {
         "nvimdev/lspsaga.nvim",

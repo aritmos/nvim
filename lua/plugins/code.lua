@@ -1,3 +1,5 @@
+-- code related plugins
+
 local codefiles = require("user.config.code-files").file_types
 
 return {
@@ -48,18 +50,26 @@ return {
     {
         "mfussenegger/nvim-dap",
         ft = codefiles,
+        keys = require("user.config.keymaps").dap,
     },
-    -- golang
     {
-        "ray-x/go.nvim",
+        "rcarriga/nvim-dap-ui",
+        ft = codefiles,
         dependencies = {
-            "ray-x/guihua.lua",
-            "neovim/nvim-lspconfig",
-            "nvim-treesitter/nvim-treesitter"
+            "mfussenegger/nvim-dap",
+            "nvim-neotest/nvim-nio",
         },
         config = function()
-            require("go").setup()
+            require("user.config.dapui")
         end,
-        ft = { "go", "gomod" },
+        keys = require("user.config.keymaps").dap_ui,
+    },
+    -- git
+    {
+        "lewis6991/gitsigns.nvim",
+        ft = codefiles,
+        opts = {
+            attach_to_untracked = true,
+        }
     },
 }

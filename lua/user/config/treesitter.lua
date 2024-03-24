@@ -16,6 +16,8 @@ treesitter.setup({
     autotag = { enable = true },
     -- ensure these language parsers are installed
     ensure_installed = {
+        "c",
+        "cpp",
         "lua",
         "rust",
         "python",
@@ -27,13 +29,9 @@ treesitter.setup({
     },
     -- auto install above language parsers
     auto_install = true,
-})
 
--- adds background to differentiate it from inlay hints
-vim.api.nvim_set_hl(0, "@comment.rust", { link = "SagaBorder" })
 
--- Treesitter textobjects
-require("nvim-treesitter.configs").setup({
+    -- treesitter textobjects
     textobjects = {
         select = {
             enable = true,
@@ -41,15 +39,22 @@ require("nvim-treesitter.configs").setup({
             keymaps = {
                 ["af"] = "@function.outer",
                 ["if"] = "@function.inner",
-                ["ac"] = "@class.outer", -- in Rust class includes: struct, enum, trait, impl, ...
+                -- in Rust `class` includes: struct, enum, trait, impl, ...
+                ["ac"] = "@class.outer",
                 ["ic"] = "@class.inner",
+
+                ["ab"] = "@block.outer",
+                ["ib"] = "@block.inner",
             },
-            selection_modes = {
-                ['@parameter.outer'] = 'v', -- charwise
-                ['@function.outer'] = 'V',  -- linewise
-                ['@class.outer'] = '<c-v>', -- blockwise
-            },
-            include_surrounding_whitespace = true,
+            -- selection_modes = {
+            --     ['@parameter.outer'] = 'v', -- charwise
+            --     ['@function.outer'] = 'V',  -- linewise
+            --     ['@class.outer'] = 'V',     -- linewise
+            -- },
+            include_surrounding_whitespace = false,
         },
     },
 })
+
+-- add highlighting to comments in rust to differentiate them from inlay hints
+vim.api.nvim_set_hl(0, "@comment", { link = "SagaBorder" })
