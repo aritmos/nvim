@@ -52,9 +52,7 @@ cmp.setup({
         end,
 
         ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_prev_item()
-            elseif luasnip.expand_or_jumpable() then -- expands/jumps within snippets
+            if luasnip.expand_or_jumpable() then -- expands/jumps within snippets
                 luasnip.expand_or_jump()
             else
                 fallback()

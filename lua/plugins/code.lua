@@ -47,6 +47,7 @@ return {
             require("mini.comment").setup({})
         end,
     },
+    -- debugging
     {
         "mfussenegger/nvim-dap",
         ft = codefiles,
@@ -63,6 +64,17 @@ return {
             require("user.config.dapui")
         end,
         keys = require("user.config.keymaps").dap_ui,
+    },
+    {
+        "jay-babu/mason-nvim-dap.nvim",
+        event = "VeryLazy",
+        dependencies = {
+            "williamboman/mason.nvim",
+            "mfussenegger/nvim-dap"
+        },
+        opts = {
+            handlers = {}
+        }
     },
     -- git
     {

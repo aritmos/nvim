@@ -18,12 +18,12 @@ return {
         "leoluz/nvim-dap-go",
         ft = { "go" },
         dependencies = {
-            "mfussenegger/nvim-dap"
+            "rcarriga/nvim-dap-ui", -- loads nvim-dap internally
         },
         keys = require("user.config.keymaps").dap_go,
-        config = function(_, opts)
-            require("dap-go").setup(opts)
-        end
+        config = function()
+            require("dap-go").setup()
+        end,
     },
     -- rust
     {

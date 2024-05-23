@@ -20,7 +20,8 @@ mason_lspconfig.setup({
         "pyright",
         "rust_analyzer",
         "lua_ls",
-        "gopls"
+        "gopls",
+        "clangd",
     },
     -- auto-install configured servers (with lspconfig)
     -- automatic_installation = true, -- not the same as ensure_installed

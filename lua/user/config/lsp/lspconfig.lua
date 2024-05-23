@@ -137,7 +137,7 @@ lspconfig.lua_ls.setup({
 })
 
 
--- configure python
+-- Python
 lspconfig.pylsp.setup({
     on_attach = on_attach,
     capabilities = capabilities,
@@ -148,7 +148,7 @@ lspconfig.pyright.setup({
     capabilities = capabilities,
 })
 
--- configure rust (rustaceanvim)
+-- Rust (rustaceanvim)
 -- https://github.com/mrcjkb/rustaceanvim/blob/master/doc/rustaceanvim.txt
 
 vim.g.rustaceanvim = {
