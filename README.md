@@ -1,3 +1,6 @@
+> [!NOTE]
+> This repo has been replaced by my newer [dotfiles](https://github.com/aritmos/dotfiles) repo.
+
 # ⚙️ ~/.config/nvim
 
 My neovim configuration files
